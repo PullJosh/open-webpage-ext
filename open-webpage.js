@@ -38,7 +38,9 @@
         console.log(popup_html);
         
         var dummyElem = document.createElement('div');
+        console.log(dummyElem);
         dummyElem.innerHTML = popup_html;
+        console.log(dummyElem);
         var popup_elem = dummyElem.childNodes;
         
         console.log(pupup_elem);
