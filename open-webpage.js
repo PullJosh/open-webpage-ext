@@ -40,6 +40,7 @@
         dummyElem.innerHTML = popup_html;
         var popup_elem = dummyElem.childNodes;
         
+        console.log(pupup_elem);
         document.body.appendChild(popup_elem);
         
         window.setTimeout(function() { // 10 second delay for testing only
