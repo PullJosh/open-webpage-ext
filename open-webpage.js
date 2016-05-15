@@ -16,7 +16,7 @@
     // final argument. This should be called to indicate that the block can
     // stop waiting.
     ext.open_page = function(url, callback) {
-        console.log("v5"); // To make sure caching isn't causing an issue
+        console.log("v6"); // To make sure caching isn't causing an issue
         if (owext_finished === false) callback(); // Don't attempt to open another page if there is already a dialog open
         
         url = String(url);
