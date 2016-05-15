@@ -18,9 +18,19 @@
                              .replace(/>/g, "&gt;")
                              .replace(/"/g, "&quot;")
                              .replace(/'/g, "&#039;");
-        console.log(url + " :: " + escaped_url);
-        var hide_dialog_script = "document.getElementById('modal-template-warning').parentNode.removeChild(document.getElementById('modal-template-warning'));";
-        var popup_html = '<dialog id="modal-template-warning" class="modal"><div class="modal-fade-screen visible"><div class="modal-inner"><dialog class="extension-url with-icon"><section><h2>Open this Webpage?</h2><p>The project wants to open</p><p><a style="color:#21b4f0 !important;">' + escaped_url + '</a></p></section><section><form class="input-plus-button url-load-form" style="text-align:center;"><a style="background-color:#BBBDC0;border-color:#BBBDC0;border-radius:5px!important;margin-right:5px;display: inline-block;float: none;cursor:pointer;color:white;padding:0.375em 1.5em;" onclick="' + hide_dialog_script + '">Exit</a><a style="border-radius:5px!important;margin-left:5px;display: inline-block;float: none;cursor:pointer;background:#21b4f0;color:white;padding:0.375em 1.5em;" onclick="' + hide_dialog_script + 'window.open(\'' + escaped_url + '\',\'_blank\');">Open</a></form></section></dialog></div></div></dialog>';
+        var cssId = 'owext-styles';  // you could encode the css path itself to generate id..
+        if (!document.getElementById(cssId))
+        {
+            var head  = document.getElementsByTagName('head')[0];
+            var link  = document.createElement('link');
+            link.id   = cssId;
+            link.rel  = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'http://joshuapullen.com/open-webpage-ext/open-webpage.css';
+            link.media = 'all';
+            head.appendChild(link);
+        }
+        var popup_html = '<div class=owext-darken id=owext-modal><div class=owext-inner><div class=owext-url><div class=owext-tophalf><h2>Open this Webpage?</h2><div>The project wants to open</div><a style=color:#21b4f0!important;font-weight:700>' + escaped_url + '</a></div><div class=owext-bottomhalf><script>function close_owext_modal(){var e=document.getElementById("owext-modal");e.parentNode.removeChild(e)}</script><a style=background:#BBBDC0 onclick=close_owext_modal()>Exit</a> <a style=background:#21b4f0 onclick=\'close_owext_modal(),window.open("' + escaped_url + '","_blank")\'>Open</a></div></div></div></div>';
         document.body.innerHTML += popup_html;
         window.setTimeout(function() { // 10 second delay for testing only
             callback();
