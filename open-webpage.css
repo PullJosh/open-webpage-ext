@@ -12,6 +12,7 @@
 .owext-inner {
   font-family: "Source Sans Pro", "Lucida Grande", "Tahoma", "Verdana", "Arial", sans-serif;
   line-height: 1.5;
+  pointer-events: all;
 }
 .owext-url {
   border-radius:5px;
