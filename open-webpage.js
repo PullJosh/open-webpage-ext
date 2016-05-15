@@ -1,17 +1,23 @@
 (function(ext) {
     // Cleanup function when the extension is unloaded
-    ext._shutdown = function() {};
+    ext._shutdown = function() {
+        owext_finished = undefined;
+    };
 
     // Status reporting code
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
         return {status: 2, msg: 'Ready'};
     };
+    
+    owext_finished = false; // Global var so fancy buttons can modify it
 
     // Functions for block with type 'w' will get a callback function as the 
     // final argument. This should be called to indicate that the block can
     // stop waiting.
     ext.open_page = function(url, callback) {
+        console.log("v3");
+        
         url = String(url);
         var escaped_url = url.replace(/&/g, "&amp;")
                              .replace(/</g, "&lt;")
@@ -31,16 +37,23 @@
             head.appendChild(link);
         }
         close_owext_modal = function() {
+            owext_finished = true;
             var elem = document.getElementById("owext-modal");
             elem.parentNode.removeChild(elem);
         }
-        console.log("v2");
-        var popup_html = '<div class=owext-darken id=owext-modal><div class=owext-inner><div class=owext-url><div class=owext-tophalf><h2>Open this Webpage?</h2><div>The project wants to open</div><a style=color:#21b4f0!important;font-weight:700>' + escaped_url + '</a></div><div class=owext-bottomhalf><a style=background:#BBBDC0 onclick=close_owext_modal()>Exit</a> <a style=background:#21b4f0 onclick=\'close_owext_modal(),window.open("' + escaped_url + '","_blank")\'>Open</a></div></div></div></div>';
+        owext_finished = false;
+        var popup_html = '<div class=owext-darken id=owext-modal><div class=owext-inner><div class=owext-url><div class=owext-tophalf><h2>Open this Webpage?</h2><div>This project wants to open</div><a style=color:#21b4f0!important;font-weight:700>' + escaped_url + '</a></div><div class=owext-bottomhalf><a style=background:#BBBDC0 onclick=close_owext_modal()>Exit</a> <a style=background:#21b4f0 onclick=\'close_owext_modal(),window.open("' + escaped_url + '","_blank")\'>Open</a></div></div></div></div>';
         $("body").append(popup_html); // Is jquery safe to use?
         
-        window.setTimeout(function() { // 10 second delay for testing only
-            callback();
-        }, 10000);
+        var checkLoop = window.setTimeout(function() {
+            if(owext_finished) {
+                owext_finished = false;
+                callback();
+            } else {
+                checkLoop();
+            }
+        }, 60);
+        checkLoop();
     };
 
     // Block and block menu descriptions
