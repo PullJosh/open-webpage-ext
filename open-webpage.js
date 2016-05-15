@@ -17,7 +17,7 @@
     // stop waiting.
     ext.open_page = function(url, callback) {
         console.log("v5"); // To make sure caching isn't causing an issue
-        if (owext_finished === false) return false; // Don't attempt to open another page if there is already a dialog open
+        if (owext_finished === false) callback(); // Don't attempt to open another page if there is already a dialog open
         
         url = String(url);
         var escaped_url = url.replace(/&/g, "&amp;")
