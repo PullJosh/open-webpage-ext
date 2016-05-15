@@ -16,7 +16,7 @@
     // final argument. This should be called to indicate that the block can
     // stop waiting.
     ext.open_page = function(url, callback) {
-        console.log("v3");
+        console.log("v4"); // To make sure caching isn't causing an issue
         
         url = String(url);
         var escaped_url = url.replace(/&/g, "&amp;")
@@ -45,14 +45,16 @@
         var popup_html = '<div class=owext-darken id=owext-modal><div class=owext-inner><div class=owext-url><div class=owext-tophalf><h2>Open this Webpage?</h2><div>This project wants to open</div><a style=color:#21b4f0!important;font-weight:700>' + escaped_url + '</a></div><div class=owext-bottomhalf><a style=background:#BBBDC0 onclick=close_owext_modal()>Exit</a> <a style=background:#21b4f0 onclick=\'close_owext_modal(),window.open("' + escaped_url + '","_blank")\'>Open</a></div></div></div></div>';
         $("body").append(popup_html); // Is jquery safe to use?
         
-        var checkLoop = window.setTimeout(function() {
-            if(owext_finished) {
-                owext_finished = false;
-                callback();
-            } else {
-                checkLoop();
-            }
-        }, 60);
+        var checkLoop = function() {
+            window.setTimeout(function() {
+                if(owext_finished) {
+                    owext_finished = false;
+                    callback();
+                } else {
+                    checkLoop();
+                }
+            }, 60);
+        }
         checkLoop();
     };
 
