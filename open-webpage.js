@@ -18,7 +18,7 @@
                              .replace(/>/g, "&gt;")
                              .replace(/"/g, "&quot;")
                              .replace(/'/g, "&#039;");
-        var cssId = 'owext-styles';  // you could encode the css path itself to generate id..
+        var cssId = 'owext-styles';
         if (!document.getElementById(cssId))
         {
             var head  = document.getElementsByTagName('head')[0];
@@ -35,15 +35,9 @@
             elem.parentNode.removeChild(elem);
         }
         var popup_html = '<div class=owext-darken id=owext-modal><div class=owext-inner><div class=owext-url><div class=owext-tophalf><h2>Open this Webpage?</h2><div>The project wants to open</div><a style=color:#21b4f0!important;font-weight:700>' + escaped_url + '</a></div><div class=owext-bottomhalf><a style=background:#BBBDC0 onclick=close_owext_modal()>Exit</a> <a style=background:#21b4f0 onclick=\'close_owext_modal(),window.open("' + escaped_url + '","_blank")\'>Open</a></div></div></div></div>';
-        console.log(popup_html);
-        
-        var dummyElem = document.createElement('div');
-        console.log(dummyElem);
-        dummyElem.innerHTML = popup_html;
-        console.log(dummyElem);
-        var popup_elem = dummyElem.childNodes;
-        
-        console.log(pupup_elem);
+        var tmp = document.implementation.createHTMLDocument();
+        tmp.body.innerHTML = popup_html;
+        var popup_elem = tmp.body.children;
         document.body.appendChild(popup_elem);
         
         window.setTimeout(function() { // 10 second delay for testing only
