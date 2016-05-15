@@ -6,6 +6,8 @@
   right:0;
   background:rgba(0, 0, 0, 0.85);
   z-index:999;
+  
+  pointer-events: none; /* Allows the user to click "through" the overlay and stop a rampant project. */
 }
 .owext-inner {
   font-family: "Source Sans Pro", "Lucida Grande", "Tahoma", "Verdana", "Arial", sans-serif;
