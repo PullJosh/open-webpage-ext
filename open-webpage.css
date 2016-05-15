@@ -1,0 +1,56 @@
+.owext-darken {
+  position:fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:rgba(0, 0, 0, 0.85);
+  z-index:999;
+}
+.owext-inner {
+  font-family: "Source Sans Pro", "Lucida Grande", "Tahoma", "Verdana", "Arial", sans-serif;
+  line-height: 1.5;
+}
+.owext-url {
+  border-radius:5px;
+  overflow:hidden;
+  text-align:center;
+  width:25em;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+}
+.owext-tophalf {
+  background:#3f5975;
+  color:#fff;
+  padding:1.5em;
+}
+.owext-tophalf::before {
+  content: "";
+  font-family: "ScratchX";
+  font-size:3em;
+  -webkit-font-smoothing:antialiased;
+  border-radius:.75em;
+  width:1.5em;
+  height:1.5em;
+  position:absolute;
+  margin-left:-0.75em;
+  background-color:#21b4f0;
+  top:0.75em;
+}
+.owext-url h2 {
+  margin:4.5em 0 0.375em 0;
+}
+.owext-bottomhalf {
+  background:white;
+  padding:1.5em;
+}
+.owext-bottomhalf a {
+  color:white;
+  padding:0.375em 1.5em;
+  border-radius:5px;
+  margin-left:5px;
+  display: inline-block;
+  cursor:pointer;
+}
