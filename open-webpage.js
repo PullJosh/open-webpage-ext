@@ -16,9 +16,11 @@
     // final argument. This should be called to indicate that the block can
     // stop waiting.
     ext.open_page = function(url, callback) {
-        console.log("v6"); // To make sure caching isn't causing an issue
-        if (owext_finished === false) callback(); // Don't attempt to open another page if there is already a dialog open
-        
+        console.log("v7"); // To make sure caching isn't causing an issue
+        if (owext_finished === false) { // Don't attempt to open another page if there is already a dialog open
+            callback();
+            return false;
+        }
         url = String(url);
         var escaped_url = url.replace(/&/g, "&amp;")
                              .replace(/</g, "&lt;")
