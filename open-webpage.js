@@ -10,13 +10,14 @@
         return {status: 2, msg: 'Ready'};
     };
     
-    owext_finished = false; // Global var so fancy buttons can modify it
+    owext_finished = true; // Global var so fancy buttons can modify it
 
     // Functions for block with type 'w' will get a callback function as the 
     // final argument. This should be called to indicate that the block can
     // stop waiting.
     ext.open_page = function(url, callback) {
-        console.log("v4"); // To make sure caching isn't causing an issue
+        console.log("v5"); // To make sure caching isn't causing an issue
+        if (owext_finished === false) return false; // Don't attempt to open another page if there is already a dialog open
         
         url = String(url);
         var escaped_url = url.replace(/&/g, "&amp;")
@@ -48,7 +49,6 @@
         var checkLoop = function() {
             window.setTimeout(function() {
                 if(owext_finished) {
-                    owext_finished = false;
                     callback();
                 } else {
                     checkLoop();
