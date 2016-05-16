@@ -45,6 +45,15 @@
 .owext-url h2 {
   margin:6.5em 0 0.375em 0;
 }
+.owext-url a {
+  color:#21b4f0;
+  font-weight:700;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .owext-bottomhalf {
   background:white;
   padding:1.5em;
